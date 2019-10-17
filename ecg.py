@@ -1,6 +1,7 @@
 # ecg.py
 import os
 import math
+import logging
 
 
 def read_data(file_name):
@@ -37,7 +38,9 @@ def convert_data(data_raw):
     """
     Time = []
     ECG = []
+    count = 0
     for row in data_raw:
+        count = count + 1
         time_and_ecg = row.split(',')
         if time_and_ecg != ['']:
             try:
@@ -45,16 +48,19 @@ def convert_data(data_raw):
                 time = float(time_and_ecg[0])
                 ecg = float(time_and_ecg[1])
             except AssertionError:
-                print('It has missing data')
+                logging.error('It has missing data on {} row'
+                              .format(count))
                 continue
             except ValueError:
-                print('It has non numeric data')
+                logging.error('It has non numeric data on {} row'
+                              .format(count))
                 continue
             try:
                 assert not math.isnan(time)
                 assert not math.isnan(ecg)
             except AssertionError:
-                print('It has NaN data')
+                logging.error('It has NaN data on {} row'
+                              .format(count))
                 continue
             else:
                 Time.append(time)
@@ -63,6 +69,37 @@ def convert_data(data_raw):
     return Time, ECG
 
 
-if __name__ == "__main__":
-    data_raw = read_data('test_data32.csv')
+def is_outside_range(ECG, filename):
+    # the name of the test file?
+    try:
+        high_v = [ecg for ecg in ECG if abs(ecg) > 300]
+        assert high_v == []
+    except AssertionError:
+        logging.warning('These ECG voltages in {} '
+                        'are out of range: {}'.format(filename, high_v))
+    return None
+
+
+def log_config(filename, level=logging.WARNING):
+    log_name = filename.split('.')[0]+'.log'
+    try:
+        os.mkdir('log')
+    except FileExistsError:
+        pass
+    logging.basicConfig(filename="./log/{}".format(log_name),
+                        level=level,
+                        datefmt='%b %d %Y %H:%M',
+                        filemode='w')
+    return None
+
+
+def main():
+    filename = 'test_data30.csv'
+    log_config(filename)
+    data_raw = read_data(filename)
     Time, ECG = convert_data(data_raw)
+    is_outside_range(ECG, filename)
+
+
+if __name__ == "__main__":
+    main()

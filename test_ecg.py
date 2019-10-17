@@ -24,10 +24,10 @@ def test_convert_data_no_abnormal_data(data_raw, expected1, expected2):
         Pass if the test passes
     """
     from ecg import convert_data
-    with LogCapture() as log_c:
+    with LogCapture() as log_ecg:
         result1, result2 = convert_data(data_raw)
         assert result1 == expected1 and result2 == expected2
-    log_c.check()
+    log_ecg.check()
 
 
 @pytest.mark.parametrize("data_raw, expected1, expected2, logging_m", [
@@ -59,10 +59,10 @@ def test_convert_data_abnormal_data(data_raw, expected1, expected2, logging_m):
         Pass if the test passes
     """
     from ecg import convert_data
-    with LogCapture() as log_c:
+    with LogCapture() as log_ecg:
         result1, result2 = convert_data(data_raw)
         assert result1 == expected1 and result2 == expected2
-    log_c.check(logging_m)
+    log_ecg.check(logging_m)
 
 
 @pytest.mark.parametrize("ECG, filename", [
@@ -72,9 +72,9 @@ def test_convert_data_abnormal_data(data_raw, expected1, expected2, logging_m):
 ])
 def test_is_outside_range_with_warning(ECG, filename):
     from ecg import is_outside_range
-    with LogCapture() as log_c:
+    with LogCapture() as log_ecg:
         is_outside_range(ECG, filename)
-    log_c.check()
+    log_ecg.check()
 
 
 @pytest.mark.parametrize("ECG, filename, logging_m", [
@@ -90,6 +90,6 @@ def test_is_outside_range_with_warning(ECG, filename):
 ])
 def test_is_outside_range_with_warning(ECG, filename, logging_m):
     from ecg import is_outside_range
-    with LogCapture() as log_c:
+    with LogCapture() as log_ecg:
         is_outside_range(ECG, filename)
-    log_c.check(logging_m)
+    log_ecg.check(logging_m)

@@ -73,18 +73,39 @@ def convert_data(data_raw):
     return Time, ECG
 
 
-def is_outside_range(ECG, filename):
-    # the name of the test file?
+def is_outside_range(ECG, file_name):
+    """Test if the values in ECG are out of range of +/- 300 mv
+
+    If the values in ECG are out of range of +/- 300 mv, a warning
+    will be raised up to the log file indicating the name of the
+    test file and that voltages exceeded the normal range.
+
+    Args:
+        ECG (list): the list of the ECG signals
+        file_name (string): the entire file name of the data
+
+    Returns:
+        None
+    """
+    high_v = [ecg for ecg in ECG if abs(ecg) > 300]
     try:
-        high_v = [ecg for ecg in ECG if abs(ecg) > 300]
         assert high_v == []
     except AssertionError:
-        logging.warning('These ECG voltages in {} '
-                        'are out of range: {}'.format(filename, high_v))
+        logging.warning('These ECG voltage {}mv in {} '
+                        'is out of range.'.format(high_v[0], file_name))
     return None
 
 
 def log_config(filename, level=logging.WARNING):
+    """
+
+    Args:
+        filename (string): the entire file name of the data
+        level: the logging level to record in the log file
+
+    Returns:
+        None
+    """
     log_name = filename.split('.')[0]+'.log'
     try:
         os.mkdir('log')
@@ -259,4 +280,4 @@ def main(filename):
 
 
 if __name__ == "__main__":
-    main('test_data16.csv')
+    main('test_data1.csv')

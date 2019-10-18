@@ -39,7 +39,7 @@ def test_convert_data_no_abnormal_data(data_raw, expected1, expected2):
     (["@,1.2", "0.4,1.4"], [0.4], [1.4],
      ("root", "ERROR", "It has non numeric data on 1 row")),
     # (["a,0.2", "0.1,-0.5", "NaN,0.5", ",0.2"], [0.1], [-0.5],
-    #  ("root", "ERROR", "It has non numeric data on 1 row"),
+    # (("root", "ERROR", "It has non numeric data on 1 row"),
     #  ("root", "ERROR", "It has NaN data on 3 row"),
     #  ("root", "ERROR", "It has missing data on 4 row"))
 ])
@@ -66,30 +66,86 @@ def test_convert_data_abnormal_data(data_raw, expected1, expected2, logging_m):
     log_ecg.check(logging_m)
 
 
-@pytest.mark.parametrize("ECG, filename", [
+@pytest.mark.parametrize("data_raw, expected1, expected2", [
+    (["a,0.2", "0.1,-0.5", "NaN,0.5", ",0.2"], [0.1], [-0.5]),
+    (["0.3,@", "1.5,1.3", "NaN,0.7", "0.6,"], [1.5], [1.3]),
+    (["0.1,`", "-0.3,-0.1", "NaN,1.2", "1.1,"], [-0.3], [-0.1])
+])
+def test_convert_data_multi_abnormal_data(data_raw, expected1, expected2):
+    """Test the function convert_data that converts the data style
+
+    Each element in input data is along with abnormal data such as missing
+    data, non numeric data and NaN data. In order to have the same logging
+    record, I purposely set the data with the same type of error in the
+    same place.
+
+    Args:
+        data_raw (list): the raw file content
+        expected1(list): the expected time
+        expected2(list): the expected ecg signal
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import convert_data
+    with LogCapture() as log_ecg:
+        result1, result2 = convert_data(data_raw)
+        assert result1 == expected1 and result2 == expected2
+    log_ecg.check(("root", "ERROR", "It has non numeric data on 1 row"),
+                  ("root", "ERROR", "It has NaN data on 3 row"),
+                  ("root", "ERROR", "It has missing data on 4 row"))
+
+
+@pytest.mark.parametrize("ECG, file_name", [
     ([20, 42, 57, 89, 70], "test1.py"),
     ([-2.345, 6.203, -10.5, -50.5, 0.2], "test2.py"),
     ([100.56, 240.25, 70, 30.47], "test3.py")
 ])
-def test_is_outside_range_with_warning(ECG, filename):
+def test_is_outside_range_no_warning(ECG, file_name):
+    """Test the function is_outside_range that test the ECG values' range
+
+    This function has no warning in the log file.
+
+    Args:
+        ECG (list): the list of the ECG signals
+        file_name (string): the entire file name of the data
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
     from ecg import is_outside_range
     with LogCapture() as log_ecg:
-        is_outside_range(ECG, filename)
+        is_outside_range(ECG, file_name)
     log_ecg.check()
 
 
 @pytest.mark.parametrize("ECG, filename, logging_m", [
     ([20, 42, 400, 350, 70], "test1.py",
      ("root", "WARNING",
-      "These ECG voltages in test1.py are out of range: [400, 350]")),
+      "These ECG voltage 400mv in test1.py is out of range.")),
     ([-2.345, 6.203, -310.5, -450.5, 0.2], "test2.py",
      ("root", "WARNING",
-      "These ECG voltages in test2.py are out of range: [-310.5, -450.5]")),
+      "These ECG voltage -310.5mv in test2.py is out of range.")),
     ([510.56, 240.25, 70, 30.47], "test3.py",
      ("root", "WARNING",
-      "These ECG voltages in test3.py are out of range: [510.56]"))
+      "These ECG voltage 510.56mv in test3.py is out of range."))
 ])
 def test_is_outside_range_with_warning(ECG, filename, logging_m):
+    """Test the function is_outside_range that test the ECG values' range
+
+    This function has warnings in the log file.
+
+    Args:
+        ECG (list): the list of the ECG signals
+        file_name (string): the entire file name of the data
+        logging_m (tuple): the warning messages
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
     from ecg import is_outside_range
     with LogCapture() as log_ecg:
         is_outside_range(ECG, filename)
@@ -235,34 +291,40 @@ def test_local_mean(fs, nor_filtered_ecg, expected):
     result = local_mean(fs, nor_filtered_ecg)
     assert result.tolist() == pytest.approx(expected.tolist())
 
-# I found out that data 16-20 are quite clean. Can I just manually find
-# the peaks in those signals and use those as my test signals?
-
 
 def test_ECG():
-    from ecg import read_data, convert_data, ave_sample_freq
+    """Import the test ECG signals for testing R detection
+
+    Returns:
+        float: the sampling frequency
+        list: the test normalized ECG signals
+    """
+    from ecg import read_data, convert_data, ave_sample_freq, normalize
     test_nor_filtered_ecg = []
     test_fs = []
     for i in range(3):
         filename = 'test_data{}.csv'.format(i+16)
         data_raw = read_data(filename)
         Time, ECG = convert_data(data_raw)
+        ECG = np.asarray(ECG)
+        nor_filtered_ecg = normalize(ECG)
         fs = ave_sample_freq(Time)
-        test_nor_filtered_ecg.append(ECG)
+        test_nor_filtered_ecg.append(nor_filtered_ecg)
         test_fs.append(fs)
     return test_fs, test_nor_filtered_ecg
 
 
 test_fs, test_nor_filtered_ecg = test_ECG()
-manual_Rpeaks = np.asarray([32, 572, 1112, 1652, 2192, 2732, 3272, 3812,
-                            4352, 4892, 5432, 5972, 6512, 7052, 7592, 8132,
-                            8672, 9212, 9752])
+# python starts counting from 0
+manual_R_peaks = np.asarray([31, 571, 1111, 1651, 2191, 2731, 3271, 3811,
+                            4351, 4891, 5431, 5971, 6511, 7051, 7591, 8131,
+                            8671, 9211, 9751])
 
 
 @pytest.mark.parametrize("fs, nor_filtered_ecg, expected", [
-    (test_fs[0], test_nor_filtered_ecg[0], manual_Rpeaks),
-    (test_fs[1], test_nor_filtered_ecg[1], manual_Rpeaks),
-    (test_fs[2], test_nor_filtered_ecg[2], manual_Rpeaks)
+    (test_fs[0], test_nor_filtered_ecg[0], manual_R_peaks),
+    (test_fs[1], test_nor_filtered_ecg[1], manual_R_peaks),
+    (test_fs[2], test_nor_filtered_ecg[2], manual_R_peaks)
 ])
 def test_R_detect(fs, nor_filtered_ecg, expected):
     """Test the function R_detect that detects the R wave of the signal
@@ -278,4 +340,4 @@ def test_R_detect(fs, nor_filtered_ecg, expected):
     """
     from ecg import R_detect
     result = R_detect(fs, nor_filtered_ecg)
-    assert result.tolist() == pytest.approx(expected.tolist(), abs=1)
+    assert result.tolist() == pytest.approx(expected.tolist())

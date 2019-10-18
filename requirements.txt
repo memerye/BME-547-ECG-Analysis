@@ -1,3 +1,6 @@
 pytest
 pytest-pep8
 testfixtures
+numpy
+scipy
+matplotlib

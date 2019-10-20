@@ -1,0 +1,555 @@
+INFO:root:----This is the log of file test_data1.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data1.csv----
+
+INFO:root:----This is the log of file test_data2.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data2.csv----
+
+INFO:root:----This is the log of file test_data3.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data3.csv----
+
+INFO:root:----This is the log of file test_data4.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data4.csv----
+
+INFO:root:----This is the log of file test_data5.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data5.csv----
+
+INFO:root:----This is the log of file test_data6.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data6.csv----
+
+INFO:root:----This is the log of file test_data7.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data7.csv----
+
+INFO:root:----This is the log of file test_data8.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data8.csv----
+
+INFO:root:----This is the log of file test_data9.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data9.csv----
+
+INFO:root:----This is the log of file test_data10.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data10.csv----
+
+INFO:root:----This is the log of file test_data11.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 360.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data11.csv----
+
+INFO:root:----This is the log of file test_data12.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data12.csv----
+
+INFO:root:----This is the log of file test_data13.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data13.csv----
+
+INFO:root:----This is the log of file test_data14.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data14.csv----
+
+INFO:root:----This is the log of file test_data15.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data15.csv----
+
+INFO:root:----This is the log of file test_data16.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data16.csv----
+
+INFO:root:----This is the log of file test_data17.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data17.csv----
+
+INFO:root:----This is the log of file test_data18.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data18.csv----
+
+INFO:root:----This is the log of file test_data19.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data19.csv----
+
+INFO:root:----This is the log of file test_data20.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data20.csv----
+
+INFO:root:----This is the log of file test_data21.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data21.csv----
+
+INFO:root:----This is the log of file test_data22.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 250.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data22.csv----
+
+INFO:root:----This is the log of file test_data23.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 250.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data23.csv----
+
+INFO:root:----This is the log of file test_data24.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 250.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data24.csv----
+
+INFO:root:----This is the log of file test_data25.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 250.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data25.csv----
+
+INFO:root:----This is the log of file test_data26.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 250.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data26.csv----
+
+INFO:root:----This is the log of file test_data27.csv----
+INFO:root:Reading the data...
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 250.00Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data27.csv----
+
+INFO:root:----This is the log of file test_data28.csv----
+INFO:root:Reading the data...
+ERROR:root:It has NaN data on 325 row.
+ERROR:root:It has NaN data on 339 row.
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 359.93Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data28.csv----
+
+INFO:root:----This is the log of file test_data29.csv----
+INFO:root:Reading the data...
+ERROR:root:It has missing data on 8181 row.
+ERROR:root:It has missing data on 8191 row.
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 719.88Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data29.csv----
+
+INFO:root:----This is the log of file test_data30.csv----
+INFO:root:Reading the data...
+ERROR:root:It has non numeric data on 966 row.
+ERROR:root:It has non numeric data on 973 row.
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 249.95Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data30.csv----
+
+INFO:root:----This is the log of file test_data31.csv----
+INFO:root:Reading the data...
+ERROR:root:It has missing data on 29 row.
+ERROR:root:It has missing data on 39 row.
+ERROR:root:It has missing data on 58 row.
+ERROR:root:It has missing data on 100 row.
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 719.74Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data31.csv----
+
+INFO:root:----This is the log of file test_data32.csv----
+INFO:root:Reading the data...
+WARNING:root:The ECG voltage 331.25mv in test_data32.csv is out of range.
+INFO:root:End of reading last line in file.
+INFO:root:* Finish computing the sampling frequency as 720.03Hz
+INFO:root:* Finish filtering the ECG signal
+INFO:root:* Finish finding the R peaks in ECG signal
+INFO:root:Calculating the information in dictionary...
+INFO:root:* Finish calculating duration as float
+INFO:root:                 ... voltage extremes as tuple
+INFO:root:                 ... number of beats as int
+INFO:root:                 ... mean bpm as int
+INFO:root:                 ... time of beats as list
+INFO:root:* Complete calculation.
+INFO:root:Saving the information in json...
+INFO:root:* Complete save the json file
+INFO:root:----This is the end of file test_data32.csv----
+

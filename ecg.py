@@ -34,8 +34,8 @@ def is_abnormal_data(time_and_ecg, count):
         count (int): the number of the row
 
     Returns:
-        None: if there is abnormal data
-        list: time and ecg if there is numeric data
+        None: If there is abnormal data
+        list: Time and ecg if there is numeric data
     """
     try:
         assert time_and_ecg[0] != '' and time_and_ecg[1] != ''
@@ -237,7 +237,7 @@ def R_detect(fs, nor_filtered_ecg):
         nor_filtered_ecg (ndarray): the normalized filtered ECG signal
 
     Returns:
-        ndarray: the indices of R in signals
+        ndarray: The indices of R in signals
 
     """
     mean_nor_filtered_ecg = local_mean(fs, nor_filtered_ecg)+0.05
@@ -271,7 +271,7 @@ def voltage_extremes(ECG):
         ECG (list): the list of the ECG signals
 
     Returns:
-        tuple: minimum and maximum voltages
+        tuple: Minimum and maximum voltages
     """
     v_extremes = (min(ECG), max(ECG))
     return v_extremes
@@ -288,7 +288,7 @@ def stat_peaks(peaks):
         peaks (ndarray): the indices of R in signals
 
     Returns:
-        list: convinced distance between the peaks
+        list: Reliable distance between the peaks
     """
     peaks = peaks.tolist()
     peaks_ref = [0]+peaks[:-1]
@@ -321,7 +321,7 @@ def mean_hr_bpm(peaks, fs):
         fs (float): the sampling frequency of the ECG signal
 
     Returns:
-        int: beats per minute
+        int: Beats per minute
     """
     peaks_dis = stat_peaks(peaks)
     dis_mean_new = np.mean(peaks_dis)
@@ -428,7 +428,7 @@ def json_output(metrics, file_name):
     beats: numpy array of times when a beat occurred
 
     Args:
-        metrics (dict): The output dictionary of the ECG data
+        metrics (dict): the output dictionary of the ECG data
         file_name (string): the entire file name of the data
 
     Returns:
@@ -455,7 +455,7 @@ def sort_files(ecg_files):
     test_data*.csv, where * stands for the number of the file
 
     Args:
-        ecg_files (list): The list of the path of ecg files
+        ecg_files (list): the list of the path of ecg files
         in random order
 
     Returns:
@@ -472,13 +472,23 @@ def sort_files(ecg_files):
     return files
 
 
-def main(files_path):
+def main(files_path, log_name):
     """The main function of the ecg.py
+
+    It basically only uses other functions so that it doesn't have
+    test function for the outputs. It should have test for logging infos,
+    warnings and errors, but it would be more convenient for us to just
+    check the real output log file and compare that with the raw data to
+    know if it works.
+
+    Args:
+        files_path (string): the path for all of the data
+        log_name (string): the name of log file
 
     Returns:
         None
     """
-    logging.basicConfig(filename="ecg.log",
+    logging.basicConfig(filename=log_name,
                         level=logging.INFO,
                         filemode='w')
     ecg_files = glob.glob(files_path)
@@ -511,5 +521,6 @@ def main(files_path):
 
 
 if __name__ == "__main__":
+    log_name = 'ecg.log'
     files_path = 'test_data/*.csv'
-    main(files_path)
+    main(files_path, log_name)

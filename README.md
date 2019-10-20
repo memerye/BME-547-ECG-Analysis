@@ -9,7 +9,7 @@ There are three main components to an ECG:
 * QRS complex: the depolarization of the ventricles
 * T wave: the repolarization of the ventricles
 
-![ECG](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS.png)
+    ![ECG](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS.png)
 
 An ECG conveys a large amount of information about the structure of the heart and the function of its electrical conduction system. Among other things, an ECG can be used to measure the rate and rhythm of heartbeats, the size and position of the heart chambers, the presence of any damage to the heart's muscle cells or conduction system, the effects of heart drugs, and the function of implanted pacemakers. As reference, if you’re sitting or lying and you’re calm, relaxed and aren’t ill, your [normal heart rate](https://www.heart.org/en/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure/all-about-heart-rate-pulse) is normally between 60 beats per minute and 100 beats per minute (BPM). 
 
@@ -40,7 +40,8 @@ the time and voltage columns.
 
 ## Functional Specifications
 ### Input
-+ The `files_path` contains the path to all of the CSV files that you want to process in this program. The name of the ecg file should follow the format as: `test_data*.csv`, where `*` stands for the number of the file. The program would read the files in ascending order of that number in file name.
++ You need to input the `files_path` to the program, which contains the path to all of the CSV files that you want to process in this program. The name of the ecg file should follow the format as: `test_data*.csv`, where `*` stands for the number of the file. The program would read the files in ascending order of that number in file name.
++ You also need to input the `log_name` to the program to create the log file.
 + The program reads ECG data from the CSV file that will have lines with `time, voltage`. Example data can be found in the `test_data/` directory in this directory.
 + If either value in a `time, voltage` pair is missing, contains a non-numeric string, or is NaN, the program would recognize that it is missing, log an `error` to the log file, and skip to the next data pair. (See [test_data\README.md](test_data/README.md) for more details.)
 + If the file contains a voltage reading outside of the normal range of +/-300 mv, a `warning` entry would be added to the log file indicating the name of the test file and that voltages exceeded the normal range. This would be done only once per file. Analysis of the data would still be done as normal.
@@ -63,14 +64,15 @@ the time and voltage columns.
 
 + Based on the preprocessing signal, I counted the beats by identifying the R wave. I defined the R wave as peaks with limitation of `dis_min` and `local_mean`, and then calculated the number of beats with the help of `stat_peaks`, where:
     - **`dis_min`** stands for an estimation of the minimum distance between peaks, which can be computed by knowing the sampling frequency and the predefined BPM as 150. Because in order to not miss any R peaks, the distance between each peak cannot be predefined so big, which is why I applied 150 BPM as it is considerable higher than normal BPM mentioned above.
-    - **`Local mean`** is the result of a moving average adding with regularation on preprocessing signal using a window of 0.25 seconds. This operation smoothes the signal so that it gives a baseline to estimate the morphology of ECG signal. The peak should be higher than this local mean baseline, otherwise it won't considered as a R wave. The result of it is shown as read line on the image below.
+    - **`Local mean`** is the result of a moving average adding with regularation on preprocessing signal using a window of 0.25 seconds. This operation smoothes the signal so that it gives a baseline to estimate the morphology of ECG signal. The peak should be higher than this local mean baseline, otherwise it won't considered as a R wave.
     - **`stat_peaks`** is a function computing the distance between each couple of the peaks, and then remove the peak distance that is 2 times away from the median distance. It returns the peak distance with high reliable, whose mean is then used to calculate the mean BPM.
+    - **Example:** The figure below shows the result of ECG processing. The image above is the raw signal, and the image below is the preprocessing signal. Blue line indicates the signal while red line indicates the local mean. The detected peaks are shown as 'x'.
 
-![processing_signal](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/processing_signal.png)
+    ![processing_signal](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/processing_signal.png)
 
 + More information: As I specified above, this program targets on the R wave to get the results. But R wave is not always the maximum peak during a heart beat. The image below shows multiple types of QRS complex. But as soon as there is a outstanding peak inside one heart beat, the program can always detect them. So this program may still effective when dealing with some abnormal ECGs.
 
-![QRS_complex](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS_nomenclature.png)
+    ![QRS_complex](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS_nomenclature.png)
 
 + The following data would be saved as keys in a Python dictionary called `metrics`:
     - `duration`: time duration of the ECG strip  
@@ -136,11 +138,12 @@ the time and voltage columns.
     ```
     * You can also change the testing arguments and expected results in the `test_ecg.py` and re-run the pytest command.
 
-6. The argument `files_path` in `ecg.py` as following piece of code shows can be changed to the path in your local that contains all of the CSV files that you want to read.
+6. The arguments `files_path` and `log_name` in `ecg.py` as following piece of code shows can be changed to the path in your local that contains all of the CSV files that you want to read and your own defined name for log file.
     ```
     if __name__ == "__main__":
+        log_name = 'ecg.log'
         files_path = 'test_data/*.csv'
-        main(files_path)
+        main(files_path, log_name)
     ```
     * Or it will read the default files in the `test_data/` directory in this repository. Then run the command `python ecg.py`. The json files for the those CSV files will automatically be created inside a folder named `json_outputs` at the current file path. The log for running `ecg.py` is also at the current file path.
 

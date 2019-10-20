@@ -9,7 +9,7 @@ There are three main components to an ECG:
 * QRS complex: the depolarization of the ventricles
 * T wave: the repolarization of the ventricles
 
-![ECG](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/master/readme_image/QRS.png)
+![ECG](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS.png)
 
 An ECG conveys a large amount of information about the structure of the heart and the function of its electrical conduction system. Among other things, an ECG can be used to measure the rate and rhythm of heartbeats, the size and position of the heart chambers, the presence of any damage to the heart's muscle cells or conduction system, the effects of heart drugs, and the function of implanted pacemakers. As reference, if you’re sitting or lying and you’re calm, relaxed and aren’t ill, your [normal heart rate](https://www.heart.org/en/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure/all-about-heart-rate-pulse) is normally between 60 beats per minute and 100 beats per minute (BPM). 
 
@@ -66,11 +66,11 @@ the time and voltage columns.
     - **`Local mean`** is the result of a moving average adding with regularation on preprocessing signal using a window of 0.25 seconds. This operation smoothes the signal so that it gives a baseline to estimate the morphology of ECG signal. The peak should be higher than this local mean baseline, otherwise it won't considered as a R wave. The result of it is shown as read line on the image below.
     - **`stat_peaks`** is a function computing the distance between each couple of the peaks, and then remove the peak distance that is 2 times away from the median distance. It returns the peak distance with high reliable, whose mean is then used to calculate the mean BPM.
 
-![processing_signal](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/master/readme_image/processing_signal.png)
+![processing_signal](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/processing_signal.png)
 
 + More information: As I specified above, this program targets on the R wave to get the results. But R wave is not always the maximum peak during a heart beat. The image below shows multiple types of QRS complex. But as soon as there is a outstanding peak inside one heart beat, the program can always detect them. So this program may still effective when dealing with some abnormal ECGs.
 
-![QRS_complex](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/master/readme_image/QRS_nomenclature.png)
+![QRS_complex](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS_nomenclature.png)
 
 + The following data would be saved as keys in a Python dictionary called `metrics`:
     - `duration`: time duration of the ECG strip  

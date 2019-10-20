@@ -26,17 +26,81 @@ def read_data(file_name):
     return data_raw
 
 
-def convert_data(data_raw):
+def is_abnormal_data(time_and_ecg, count):
+    """Test if it is abnormal data
+
+    Args:
+        time_and_ecg (list): the list has strings of  time and ecg
+        count (int): the number of the row
+
+    Returns:
+        None: if there is abnormal data
+        list: time and ecg if there is numeric data
+    """
+    try:
+        assert time_and_ecg[0] != '' and time_and_ecg[1] != ''
+        time = float(time_and_ecg[0])
+        ecg = float(time_and_ecg[1])
+    except AssertionError:
+        logging.error('It has missing data on {} row.'
+                      .format(count))
+        return None
+    except ValueError:
+        logging.error('It has non numeric data on {} row.'
+                      .format(count))
+        return None
+    try:
+        assert not math.isnan(time)
+        assert not math.isnan(ecg)
+    except AssertionError:
+        logging.error('It has NaN data on {} row.'
+                      .format(count))
+        return None
+    return [time, ecg]
+
+
+def is_outside_range(ecg, file_name, flag):
+    """Test if the values in ECG are out of range of +/- 300 mv
+
+    If the values in ECG are out of range of +/- 300 mv, a warning
+    will be raised up to the log file indicating the name of the
+    test file and that voltages exceeded the normal range. If it has
+    data outside range, the warning will appear only once in a file.
+
+    Args:
+        ecg (float): a value in ECG signals
+        file_name (string): the entire file name of the data
+        flag (bool): test if the function will be executed
+                     False: if it never reads a value out of range before
+                            possible to be executed if input is out of range
+                     True: if it has read a value out of range before
+                           the function would never be executed
+
+    Returns:
+        bool: True if it is out of range; otherwise false.
+    """
+    try:
+        assert abs(ecg) <= 300 or flag
+    except AssertionError:
+        logging.warning('The ECG voltage {}mv in {} '
+                        'is out of range.'.format(ecg, file_name))
+        flag = True
+    return flag
+
+
+def convert_data(data_raw, file_name):
     """Convert the data from raw string style to the list numbers
 
     The raw data is the list of the strings with mixed time and ecg
     signals. This function converts the strings to numbers. It
-    regards the empty row as the end of the csv file. It can also
-    print the corresponding error message when the data contain some
-    non-numeric entries, missing data, or NaN.
+    regards the empty row as the end of the csv file. It can log
+    the corresponding error message when the data contain some
+    non-numeric entries, missing data, or NaN. It can log the warning
+    if the ecg values are out of range of +/-300mv.
 
     Args:
         data_raw (list): the raw file content
+        file_name (string): the entire file name of the data
 
     Returns:
         list: The list of the time
@@ -45,57 +109,23 @@ def convert_data(data_raw):
     Time = []
     ECG = []
     count = 0
+    flag = False
+    data_raw.append('')
     for row in data_raw:
+        try:
+            assert bool(row)
+        except AssertionError:
+            logging.info('End of reading last line in file.')
+            break
         count = count + 1
         time_and_ecg = row.split(',')
-        if time_and_ecg != ['']:
-            try:
-                assert time_and_ecg[0] != '' and time_and_ecg[1] != ''
-                time = float(time_and_ecg[0])
-                ecg = float(time_and_ecg[1])
-            except AssertionError:
-                logging.error('It has missing data on {} row.'
-                              .format(count))
-                continue
-            except ValueError:
-                logging.error('It has non numeric data on {} row.'
-                              .format(count))
-                continue
-            try:
-                assert not math.isnan(time)
-                assert not math.isnan(ecg)
-            except AssertionError:
-                logging.error('It has NaN data on {} row.'
-                              .format(count))
-                continue
-            else:
-                Time.append(time)
-                ECG.append(ecg)
+        time_ecg = is_abnormal_data(time_and_ecg, count)
+        if time_ecg:
+            flag = is_outside_range(time_ecg[1], file_name, flag)
+            Time.append(time_ecg[0])
+            ECG.append(time_ecg[1])
     assert len(Time) == len(ECG)
     return Time, ECG
-
-
-def is_outside_range(ECG, file_name):
-    """Test if the values in ECG are out of range of +/- 300 mv
-
-    If the values in ECG are out of range of +/- 300 mv, a warning
-    will be raised up to the log file indicating the name of the
-    test file and that voltages exceeded the normal range.
-
-    Args:
-        ECG (list): the list of the ECG signals
-        file_name (string): the entire file name of the data
-
-    Returns:
-        None
-    """
-    high_v = [ecg for ecg in ECG if abs(ecg) > 300]
-    try:
-        assert high_v == []
-    except AssertionError:
-        logging.warning('The ECG voltage {}mv in {} '
-                        'is out of range.'.format(high_v[0], file_name))
-    return None
 
 
 def ave_sample_freq(Time):
@@ -458,9 +488,7 @@ def main(files_path):
         logging.info('----This is the log of file {}----'.format(filename))
         logging.info('Reading the data...')
         data_raw = read_data(filename)
-        Time, ECG = convert_data(data_raw)
-        is_outside_range(ECG, filename)
-        logging.info('* Finish reading the ECG data as list.')
+        Time, ECG = convert_data(data_raw, filename)
         fs = ave_sample_freq(Time)
         logging.info('* Finish computing the sampling frequency as '
                      '{0:.2f}Hz'.format(fs))

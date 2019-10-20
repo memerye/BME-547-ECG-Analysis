@@ -9,7 +9,7 @@ There are three main components to an ECG:
 * QRS complex: the depolarization of the ventricles
 * T wave: the repolarization of the ventricles
 
-![ECG](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/master/readme_image/QRS.png)
+![ECG](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS.png)
 
 An ECG conveys a large amount of information about the structure of the heart and the function of its electrical conduction system. Among other things, an ECG can be used to measure the rate and rhythm of heartbeats, the size and position of the heart chambers, the presence of any damage to the heart's muscle cells or conduction system, the effects of heart drugs, and the function of implanted pacemakers. As reference, if you’re sitting or lying and you’re calm, relaxed and aren’t ill, your [normal heart rate](https://www.heart.org/en/health-topics/high-blood-pressure/the-facts-about-high-blood-pressure/all-about-heart-rate-pulse) is normally between 60 beats per minute and 100 beats per minute (BPM). 
 
@@ -40,11 +40,21 @@ the time and voltage columns.
 
 ## Functional Specifications
 ### Input
-+ The `files_path` contains the path to all of the CSV files that you want to process in this program. The name of the ecg file should follow the format as: `test_data*.csv`, where * stands for the number of the file. The program would read the files in ascending order of that number in file name.
++ The `files_path` contains the path to all of the CSV files that you want to process in this program. The name of the ecg file should follow the format as: `test_data*.csv`, where `*` stands for the number of the file. The program would read the files in ascending order of that number in file name.
 + The program reads ECG data from the CSV file that will have lines with `time, voltage`. Example data can be found in the `test_data/` directory in this directory.
 + If either value in a `time, voltage` pair is missing, contains a non-numeric string, or is NaN, the program would recognize that it is missing, log an `error` to the log file, and skip to the next data pair. (See [test_data\README.md](test_data/README.md) for more details.)
 + If the file contains a voltage reading outside of the normal range of +/-300 mv, a `warning` entry would be added to the log file indicating the name of the test file and that voltages exceeded the normal range. This would be done only once per file. Analysis of the data would still be done as normal.
 + If the program reads an empty line in the data, then it regards this as the sign of stopping read and returns log `information` as finish reading.
++ The example log for inputing data is shown as following.
+    ```
+    INFO:root:----This is the log of file test_data32.csv----
+    INFO:root:Reading the data...
+    ERROR:root:It has missing data on 29 row.
+    ERROR:root:It has NaN data on 339 row.
+    ERROR:root:It has non numeric data on 966 row.
+    WARNING:root:The ECG voltage 331.25mv in test_data32.csv is out of range.
+    INFO:root:End of reading last line in file.
+    ```
 
 ### ECG Processing
 + The detection of a R peak would be considered as a heart beat. In order to easily detect those peaks, the ECG signals need some preprocessing.
@@ -56,11 +66,11 @@ the time and voltage columns.
     - **`Local mean`** is the result of a moving average adding with regularation on preprocessing signal using a window of 0.25 seconds. This operation smoothes the signal so that it gives a baseline to estimate the morphology of ECG signal. The peak should be higher than this local mean baseline, otherwise it won't considered as a R wave. The result of it is shown as read line on the image below.
     - **`stat_peaks`** is a function computing the distance between each couple of the peaks, and then remove the peak distance that is 2 times away from the median distance. It returns the peak distance with high reliable, whose mean is then used to calculate the mean BPM.
 
-![processing_signal](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/master/readme_image/processing_signal.png)
+![processing_signal](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/processing_signal.png)
 
 + More information: As I specified above, this program targets on the R wave to get the results. But R wave is not always the maximum peak during a heart beat. The image below shows multiple types of QRS complex. But as soon as there is a outstanding peak inside one heart beat, the program can always detect them. So this program may still effective when dealing with some abnormal ECGs.
 
-![QRS complex](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/master/readme_image/QRS_nomenclature.png)
+![QRS_complex](https://github.com/bme547-fall2019/ecg-analysis-memerye/blob/spinx/readme_image/QRS_nomenclature.png)
 
 + The following data would be saved as keys in a Python dictionary called `metrics`:
     - `duration`: time duration of the ECG strip  
@@ -68,6 +78,20 @@ the time and voltage columns.
     - `num_beats`: number of detected beats in the strip
     - `mean_hr_bpm`: estimated average heart rate over the length of the strip  
     - `beats`: numpy array of times when a beat occurred
+
++ If no error occur, the example log for signal processing is shown as following.
+    ```
+    INFO:root:* Finish computing the sampling frequency as 720.03Hz
+    INFO:root:* Finish filtering the ECG signal
+    INFO:root:* Finish finding the R peaks in ECG signal
+    INFO:root:Calculating the information in dictionary...
+    INFO:root:* Finish calculating duration as float
+    INFO:root:                 ... voltage extremes as tuple
+    INFO:root:                 ... number of beats as int
+    INFO:root:                 ... mean bpm as int
+    INFO:root:                 ... time of beats as list
+    INFO:root:* Complete calculation.
+    ```
 
 ### Output
 + The `metrics` dictionary would be output as a [JSON](https://json.org/) 
@@ -78,57 +102,56 @@ the time and voltage columns.
    - log as `INFO` when starting and finishing analysis of a new ECG trace
    - log as `INFO` when assigning/calculating an attribute/dictionary entry
    - log as `WARNING` or `ERROR` when exceptions are generated
-+ The following is an example of log for one ECG file.
-```
-INFO:root:----This is the log of file test_data32.csv----
-INFO:root:Reading the data...
-WARNING:root:The ECG voltage 331.25mv in test_data32.csv is out of range.
-INFO:root:End of reading last line in file.
-INFO:root:* Finish computing the sampling frequency as 720.03Hz
-INFO:root:* Finish filtering the ECG signal
-INFO:root:* Finish finding the R peaks in ECG signal
-INFO:root:Calculating the information in dictionary...
-INFO:root:* Finish calculating duration as float
-INFO:root:                 ... voltage extremes as tuple
-INFO:root:                 ... number of beats as int
-INFO:root:                 ... mean bpm as int
-INFO:root:                 ... time of beats as list
-INFO:root:* Complete calculation.
-INFO:root:Saving the information in json...
-INFO:root:* Complete save the json file
-INFO:root:----This is the end of file test_data32.csv----
-```
++ If no error occur, the example log for signal processing is shown as following.
+    ```
+    INFO:root:Saving the information in json...
+    INFO:root:* Complete save the json file
+    INFO:root:----This is the end of file test_data32.csv----
+    ```
 
 
 ## How to use
-* Choose "clone with https" in your repository to your local computer.
-* Open your `Git Bash` and input `git clone` adding with the http.
-* Install the required code environment in the `requitements.txt` with the following command: `pip install -r requirements.txt`
-* Ensure the existence of the files named `ecg.py` and `test_ecg.py`. 
-* Run the command `pytest -v` in your bash window. It will automatically test the function in `ecg.py`. If all pass, we are expected to see the following output (just part of it).
-```
-========================================================================================================= test session starts =========================================================================================================
-platform darwin -- Python 3.6.8, pytest-5.2.1, py-1.8.0, pluggy-0.13.0 -- /Users/liangyu/Documents/BME/BME547/Homework/ecg-analysis-memerye/myvenv/bin/python
-cachedir: .pytest_cache
-rootdir: /Users/liangyu/Documents/BME/BME547/Homework/ecg-analysis-memerye
-plugins: pep8-1.0.6
-collected 60 items
+1. Choose "clone with https" in your repository to your local computer.
+2. Open your `Git Bash` and input `git clone` adding with the http.
+3. Install the required code environment in the `requitements.txt` with the following command: `pip install -r requirements.txt`
+4. Ensure the existence of the files named `ecg.py` and `test_ecg.py`. 
+5. Run the command `pytest -v` in your bash window. It will automatically test the function in `ecg.py`. If all pass, we are expected to see the following output (just part of it).
+    ```
+    ========================================================================================================= test session starts =========================================================================================================
+    platform darwin -- Python 3.6.8, pytest-5.2.1, py-1.8.0, pluggy-0.13.0 -- /Users/liangyu/Documents/BME/BME547/Homework/ecg-analysis-memerye/myvenv/bin/python
+    cachedir: .pytest_cache
+    rootdir: /Users/liangyu/Documents/BME/BME547/Homework/ecg-analysis-memerye
+    plugins: pep8-1.0.6
+    collected 60 items
 
-test_ecg.py::test_is_abnormal_data_no[time_and_ecg0-4-expected0] PASSED                                                                                                                                                         [  1%]
-test_ecg.py::test_is_abnormal_data_no[time_and_ecg1-6-expected1] PASSED                                                                                                                                                         [  3%]
-test_ecg.py::test_is_abnormal_data_no[time_and_ecg2-3-expected2] PASSED                                                                                                                                                         [  5%]
-...
-test_ecg.py::test_sort_files[ecg_files0-expected0] PASSED                                                                                                                                                                       [ 96%]
-test_ecg.py::test_sort_files[ecg_files1-expected1] PASSED                                                                                                                                                                       [ 98%]
-test_ecg.py::test_sort_files[ecg_files2-expected2] PASSED                                                                                                                                                                       [100%]
+    test_ecg.py::test_is_abnormal_data_no[time_and_ecg0-4-expected0] PASSED                                                                                                                                                         [  1%]
+    test_ecg.py::test_is_abnormal_data_no[time_and_ecg1-6-expected1] PASSED                                                                                                                                                         [  3%]
+    test_ecg.py::test_is_abnormal_data_no[time_and_ecg2-3-expected2] PASSED                                                                                                                                                         [  5%]
+    ...
+    test_ecg.py::test_sort_files[ecg_files0-expected0] PASSED                                                                                                                                                                       [ 96%]
+    test_ecg.py::test_sort_files[ecg_files1-expected1] PASSED                                                                                                                                                                       [ 98%]
+    test_ecg.py::test_sort_files[ecg_files2-expected2] PASSED                                                                                                                                                                       [100%]
 
-========================================================================================================= 60 passed in 0.70s ==========================================================================================================
-```
-* You can also change the testing arguments and expected results in the `test_ecg.py` and re-run the pytest command.
-* The argument `files_path` in `ecg.py` can be changed to the path in your local that contains all of the CSV files that you want to read. Or it will read the default files in the `test_data/` directory in this repository. Then run the command `python ecg.py`. The json files for the those CSV files will automatically be created inside a folder named `json_outputs` at the current file path. The log for running `ecg.py` is also at the current file path.
-* If you want to create the sphinx documentation, you shluld first run `cd docs` to get into the folder. Then run Makefile to generate documentation (e.g., `make html`). This will create `docs/_build/html` with the default webpage being `index.html`. Or the result of webpage that I ran is in the same path in the repository.
+    ========================================================================================================= 60 passed in 0.70s ==========================================================================================================
+    ```
+    * You can also change the testing arguments and expected results in the `test_ecg.py` and re-run the pytest command.
+
+6. The argument `files_path` in `ecg.py` as following piece of code shows can be changed to the path in your local that contains all of the CSV files that you want to read.
+    ```
+    if __name__ == "__main__":
+        files_path = 'test_data/*.csv'
+        main(files_path)
+    ```
+    * Or it will read the default files in the `test_data/` directory in this repository. Then run the command `python ecg.py`. The json files for the those CSV files will automatically be created inside a folder named `json_outputs` at the current file path. The log for running `ecg.py` is also at the current file path.
+
+7. If you want to create the sphinx documentation, you should run following commands to generate HTML documentation. 
+    ```
+    cd docs
+    sphinx-build -M html . _build
+    ```
+    * This will create `docs/_build/html` with the default webpage being `index.html`. Or the result of webpage that I ran is in the same path in the repository.
 
 
 ## Reference
-https://github.com/dward2/BME547/blob/master/Assignments/ECG_Analysis/test_data/README.md
-https://github.com/dward2/BME547/blob/master/Assignments/ECG_Analysis/README.md
++ https://github.com/dward2/BME547/blob/master/Assignments/ECG_Analysis/test_data/README.md
++ https://github.com/dward2/BME547/blob/master/Assignments/ECG_Analysis/README.md

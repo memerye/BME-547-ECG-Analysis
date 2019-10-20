@@ -93,7 +93,7 @@ def is_outside_range(ECG, file_name):
     try:
         assert high_v == []
     except AssertionError:
-        logging.warning('These ECG voltage {}mv in {} '
+        logging.warning('The ECG voltage {}mv in {} '
                         'is out of range.'.format(high_v[0], file_name))
     return None
 

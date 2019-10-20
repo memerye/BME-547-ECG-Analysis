@@ -120,13 +120,13 @@ def test_is_outside_range_no_warning(ECG, file_name):
 @pytest.mark.parametrize("ECG, filename, logging_m", [
     ([20, 42, 400, 350, 70], "test1.py",
      ("root", "WARNING",
-      "These ECG voltage 400mv in test1.py is out of range.")),
+      "The ECG voltage 400mv in test1.py is out of range.")),
     ([-2.345, 6.203, -310.5, -450.5, 0.2], "test2.py",
      ("root", "WARNING",
-      "These ECG voltage -310.5mv in test2.py is out of range.")),
+      "The ECG voltage -310.5mv in test2.py is out of range.")),
     ([510.56, 240.25, 70, 30.47], "test3.py",
      ("root", "WARNING",
-      "These ECG voltage 510.56mv in test3.py is out of range."))
+      "The ECG voltage 510.56mv in test3.py is out of range."))
 ])
 def test_is_outside_range_with_warning(ECG, filename, logging_m):
     """Test the function is_outside_range that test the ECG values' range

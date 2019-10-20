@@ -33,11 +33,11 @@ def test_convert_data_no_abnormal_data(data_raw, expected1, expected2):
 
 @pytest.mark.parametrize("data_raw, expected1, expected2, logging_m", [
     ([",2.3", "1.3,0.6", "1.4,-0.2"], [1.3, 1.4], [0.6, -0.2],
-     ("root", "ERROR", "It has missing data on 1 row")),
+     ("root", "ERROR", "It has missing data on 1 row.")),
     (["-0.2,1.1", "0.3,1.3", "0.4,NaN"], [-0.2, 0.3], [1.1, 1.3],
-     ("root", "ERROR", "It has NaN data on 3 row")),
+     ("root", "ERROR", "It has NaN data on 3 row.")),
     (["@,1.2", "0.4,1.4"], [0.4], [1.4],
-     ("root", "ERROR", "It has non numeric data on 1 row"))
+     ("root", "ERROR", "It has non numeric data on 1 row."))
 ])
 def test_convert_data_abnormal_data(data_raw, expected1, expected2, logging_m):
     """Test the function convert_data that converts the data style
@@ -88,9 +88,9 @@ def test_convert_data_multi_abnormal_data(data_raw, expected1, expected2):
     with LogCapture() as log_ecg:
         result1, result2 = convert_data(data_raw)
         assert result1 == expected1 and result2 == expected2
-    log_ecg.check(("root", "ERROR", "It has non numeric data on 1 row"),
-                  ("root", "ERROR", "It has NaN data on 3 row"),
-                  ("root", "ERROR", "It has missing data on 4 row"))
+    log_ecg.check(("root", "ERROR", "It has non numeric data on 1 row."),
+                  ("root", "ERROR", "It has NaN data on 3 row."),
+                  ("root", "ERROR", "It has missing data on 4 row."))
 
 
 @pytest.mark.parametrize("ECG, file_name", [
@@ -474,3 +474,38 @@ def test_sort_files(ecg_files, expected):
     from ecg import sort_files
     result = sort_files(ecg_files)
     assert result == expected
+
+
+@pytest.mark.parametrize("Time, ECG, peaks, fs", [
+    ([1.3, 1.4, 1.6], [0.6, -0.2, 1.3], np.asarray([0, 1]), 10),
+    ([-0.2, 0.3, 0.9], [1.1, 1.3, 1.7], np.asarray([0, 1]), 10),
+    ([0.4, 0.5, 0.8], [1.4, -0.4, 0.5], np.asarray([0, 1]), 10)
+])
+def test_create_dict(Time, ECG, peaks, fs):
+    """Test the function create_dict that forms the dictionary for each signal
+
+    Only test on the logging information
+
+    Args:
+        Time (list): the list of time
+        ECG (list): the list of the ECG signals
+        peaks (ndarray): the indices of R in signals
+        fs (float): the sampling frequency of the ECG signal
+        expected(list): the expected time
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import create_dict
+    with LogCapture() as log_ecg:
+        result = create_dict(Time, ECG, peaks, fs)
+    log_ecg.check(('root', 'INFO', '* Finish calculating duration as float'),
+                  ('root', 'INFO', '                 '
+                                   '... voltage extremes as tuple'),
+                  ('root', 'INFO', '                 '
+                                   '... number of beats as int'),
+                  ('root', 'INFO', '                 '
+                                   '... mean bpm as int'),
+                  ('root', 'INFO', '                 '
+                                   '... time of beats as list'))

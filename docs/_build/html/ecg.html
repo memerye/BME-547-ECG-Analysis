@@ -46,7 +46,7 @@
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>the indices of R in signals</p>
+<dd class="field-even"><p>The indices of R in signals</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ndarray</p>
@@ -238,8 +238,8 @@ beats: numpy array of times when a beat occurred</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>if there is abnormal data
-list: time and ecg if there is numeric data</p>
+<dd class="field-even"><p>If there is abnormal data
+list: Time and ecg if there is numeric data</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>None</p>
@@ -296,7 +296,7 @@ beats: numpy array of times when a beat occurred</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>metrics</strong> (<em>dict</em>) – The output dictionary of the ECG data</p></li>
+<li><p><strong>metrics</strong> (<em>dict</em>) – the output dictionary of the ECG data</p></li>
 <li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
 </ul>
 </dd>
@@ -328,11 +328,22 @@ beats: numpy array of times when a beat occurred</p>
 
 <dl class="function">
 <dt id="ecg.main">
-<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">files_path</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">files_path</em>, <em class="sig-param">log_name</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>The main function of the ecg.py</p>
+<p>It basically only uses other functions so that it doesn’t have
+test function for the outputs. It should have test for logging infos,
+warnings and errors, but it would be more convenient for us to just
+check the real output log file and compare that with the raw data to
+know if it works.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files_path</strong> (<em>string</em>) – the path for all of the data</p></li>
+<li><p><strong>log_name</strong> (<em>string</em>) – the name of log file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -349,7 +360,7 @@ beats: numpy array of times when a beat occurred</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>beats per minute</p>
+<dd class="field-even"><p>Beats per minute</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>int</p>
@@ -417,7 +428,7 @@ test_data*.csv, where * stands for the number of the file</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ecg_files</strong> (<em>list</em>) – The list of the path of ecg files</p></li>
+<li><p><strong>ecg_files</strong> (<em>list</em>) – the list of the path of ecg files</p></li>
 <li><p><strong>random order</strong> (<em>in</em>) – </p></li>
 </ul>
 </dd>
@@ -442,7 +453,7 @@ which are considered as the wrong peaks.</p>
 <dd class="field-odd"><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>convinced distance between the peaks</p>
+<dd class="field-even"><p>Reliable distance between the peaks</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -481,7 +492,7 @@ which are considered as the wrong peaks.</p>
 <dd class="field-odd"><p><strong>ECG</strong> (<em>list</em>) – the list of the ECG signals</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>minimum and maximum voltages</p>
+<dd class="field-even"><p>Minimum and maximum voltages</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>tuple</p>

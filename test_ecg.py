@@ -505,7 +505,6 @@ def test_create_dict(Time, ECG, peaks, fs):
         ECG (list): the list of the ECG signals
         peaks (ndarray): the indices of R in signals
         fs (float): the sampling frequency of the ECG signal
-        expected(list): the expected time
 
     Returns:
         Error if the test fails
@@ -537,7 +536,7 @@ def test_sort_files(ecg_files, expected):
     """Test the function sort_files that sorts the ecg files in the folder
 
     Args:
-        ecg_files (list): The list of the ecg files in random order
+        ecg_files (list): the list of the ecg files in random order
         expected (list): the expected ecg files in the folder
 
     Returns:

@@ -4,3 +4,4 @@ testfixtures
 numpy
 scipy
 matplotlib
+sphinx

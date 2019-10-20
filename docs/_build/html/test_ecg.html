@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>test_ecg module &#8212; ECG Analysis  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ecg module" href="ecg.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-test_ecg">
+<span id="test-ecg-module"></span><h1>test_ecg module<a class="headerlink" href="#module-test_ecg" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="test_ecg.test_ECG">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_ECG</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_ECG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Import the test ECG signals for testing R detection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the sampling frequency
+list: the test normalized ECG signals</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_R_detect">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_R_detect</code><span class="sig-paren">(</span><em class="sig-param">fs</em>, <em class="sig-param">nor_filtered_ecg</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_R_detect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function R_detect that detects the R wave of the signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency</p></li>
+<li><p><strong>nor_filtered_ecg</strong> (<em>ndarray</em>) – the normalized filtered ECG signal</p></li>
+<li><p><strong>expected</strong> (<em>ndarray</em>) – the expected indices of R peaks in signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_ave_sample_freq">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_ave_sample_freq</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_ave_sample_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function ave_sample_freq that calculates the average sampling time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>expected</strong> (<em>float</em>) – the expected average sampling frequency</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_beats">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_beats</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">peaks</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_beats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function beats that records the times when beats occurred</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected times of beats</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_convert_data_abnormal">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_convert_data_abnormal</code><span class="sig-paren">(</span><em class="sig-param">data_raw</em>, <em class="sig-param">file_name</em>, <em class="sig-param">expected1</em>, <em class="sig-param">expected2</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_convert_data_abnormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function convert_data that converts the data style</p>
+<p>Each element in input data is along with abnormal data such as missing
+data, non numeric data and NaN data. And also it has data put of range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_raw</strong> (<em>list</em>) – the raw file content</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+<li><p><strong>expected1</strong> (<em>list</em>) – the expected time</p></li>
+<li><p><strong>expected2</strong> (<em>list</em>) – the expected ecg signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_convert_data_no_abnormal">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_convert_data_no_abnormal</code><span class="sig-paren">(</span><em class="sig-param">data_raw</em>, <em class="sig-param">file_name</em>, <em class="sig-param">expected1</em>, <em class="sig-param">expected2</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_convert_data_no_abnormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function convert_data that converts the data style</p>
+<p>The input data are all WITHOUT abnormal data such as missing data,
+non numeric data and NaN data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_raw</strong> (<em>list</em>) – the raw file content</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+<li><p><strong>expected1</strong> (<em>list</em>) – the expected time</p></li>
+<li><p><strong>expected2</strong> (<em>list</em>) – the expected ecg signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_create_dict">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_create_dict</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">ECG</em>, <em class="sig-param">peaks</em>, <em class="sig-param">fs</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_create_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function create_dict that forms the dictionary for each signal</p>
+<p>Only test on the logging information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>ECG</strong> (<em>list</em>) – the list of the ECG signals</p></li>
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency of the ECG signal</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_duration">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_duration</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function duration that calculates the time duration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>expected</strong> (<em>float</em>) – the expected time duration</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_ecg_filter">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_ecg_filter</code><span class="sig-paren">(</span><em class="sig-param">fs</em>, <em class="sig-param">ECG</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_ecg_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function ecg_filter that filters the signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency</p></li>
+<li><p><strong>ECG</strong> (<em>list</em>) – the ECG signal</p></li>
+<li><p><strong>expected</strong> (<em>ndarray</em>) – the expected filtered signals</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_is_abnormal_data_no">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_is_abnormal_data_no</code><span class="sig-paren">(</span><em class="sig-param">time_and_ecg</em>, <em class="sig-param">count</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_is_abnormal_data_no" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function is_abnormal_data to test if it is abnormal data</p>
+<p>The input data are all WITHOUT abnormal data such as missing data,
+non numeric data and NaN data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_and_ecg</strong> (<em>string</em>) – the list has strings of  time and ecg</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – the number of the row</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected list of time and ecg values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_is_abnormal_data_yes">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_is_abnormal_data_yes</code><span class="sig-paren">(</span><em class="sig-param">time_and_ecg</em>, <em class="sig-param">count</em>, <em class="sig-param">expected</em>, <em class="sig-param">logging_m</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_is_abnormal_data_yes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function is_abnormal_data to test if it is abnormal data</p>
+<p>The input data are all WITH abnormal data such as missing data,
+non numeric data and NaN data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_and_ecg</strong> (<em>string</em>) – the list has strings of  time and ecg</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – the number of the row</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected list of time and ecg values</p></li>
+<li><p><strong>logging_m</strong> (<em>tuple</em>) – the expected logging message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_is_outside_range_no">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_is_outside_range_no</code><span class="sig-paren">(</span><em class="sig-param">ecg</em>, <em class="sig-param">file_name</em>, <em class="sig-param">flag</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_is_outside_range_no" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function is_outside_range that test the ECG values’ range</p>
+<p>This function has no warning in the log file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg</strong> (<em>float</em>) – a value in ECG signals</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+<li><p><strong>flag</strong> (<em>bool</em>) – <p>test if the function will be executed
+False: if it never reads a value out of range before</p>
+<blockquote>
+<div><p>possible to be executed if input is out of range</p>
+</div></blockquote>
+<dl class="simple">
+<dt>True: if it has read a value out of range before</dt><dd><p>the function would never be executed</p>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_is_outside_range_yes">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_is_outside_range_yes</code><span class="sig-paren">(</span><em class="sig-param">ecg</em>, <em class="sig-param">file_name</em>, <em class="sig-param">flag</em>, <em class="sig-param">logging_m</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_is_outside_range_yes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function is_outside_range that test the ECG values’ range</p>
+<p>This function has warnings in the log file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg</strong> (<em>float</em>) – a value in ECG signals</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+<li><p><strong>flag</strong> (<em>bool</em>) – <p>test if the function will be executed
+False: if it never reads a value out of range before</p>
+<blockquote>
+<div><p>possible to be executed if input is out of range</p>
+</div></blockquote>
+<dl class="simple">
+<dt>True: if it has read a value out of range before</dt><dd><p>the function would never be executed</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>logging_m</strong> (<em>tuple</em>) – the warning messages</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_local_mean">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_local_mean</code><span class="sig-paren">(</span><em class="sig-param">fs</em>, <em class="sig-param">nor_filtered_ecg</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_local_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function local_mean that gets the local mean of the signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency</p></li>
+<li><p><strong>nor_filtered_ecg</strong> (<em>ndarray</em>) – the normalized filtered ECG signal</p></li>
+<li><p><strong>expected</strong> (<em>ndarray</em>) – the expected local means of the input signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_mean_hr_bpm">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_mean_hr_bpm</code><span class="sig-paren">(</span><em class="sig-param">peaks_dis</em>, <em class="sig-param">fs</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_mean_hr_bpm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function mean_hr_bpm that calculates the mean beats per minute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected mean beats per minute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_normalize">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_normalize</code><span class="sig-paren">(</span><em class="sig-param">filtered_ecg</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function normalize that normalizes the signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filtered_ecg</strong> (<em>ndarray</em>) – the filtered ECG signal</p></li>
+<li><p><strong>expected</strong> (<em>ndarray</em>) – the expected normalized signals</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_num_beats">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_num_beats</code><span class="sig-paren">(</span><em class="sig-param">peaks</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_num_beats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function num_beats that calculates the number of the peaks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected number of the peaks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_signal">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_signal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_signal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create six signals to test the filter function</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of six signals which contains three signals
+inside the cutoff frequency and three signals outside the
+cutoff frequency</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_sort_files">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_sort_files</code><span class="sig-paren">(</span><em class="sig-param">ecg_files</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_sort_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function sort_files that sorts the ecg files in the folder</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg_files</strong> (<em>list</em>) – The list of the ecg files in random order</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected ecg files in the folder</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_stat_peaks">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_stat_peaks</code><span class="sig-paren">(</span><em class="sig-param">peaks</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_stat_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function stat_peaks that removes the abnormal
+points in peak distance and return the peak distance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>expected</strong> (<em>list</em>) – the expected peaks distance</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="test_ecg.test_voltage_extremes">
+<code class="sig-prename descclassname">test_ecg.</code><code class="sig-name descname">test_voltage_extremes</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">expected</em><span class="sig-paren">)</span><a class="headerlink" href="#test_ecg.test_voltage_extremes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test the function voltage_extremes that calculates min and max voltages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>expected</strong> (<em>tuple</em>) – the expected time voltage extremes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Error if the test fails
+Pass if the test passes</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ECG Analysis</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ecg.html">ecg module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">test_ecg module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="ecg.html" title="previous chapter">ecg module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Liangyu Xu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/test_ecg.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

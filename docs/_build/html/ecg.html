@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>ecg module &#8212; ECG Analysis  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="test_ecg module" href="test_ecg.html" />
+    <link rel="prev" title="Welcome to ECG Analysis’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-ecg">
+<span id="ecg-module"></span><h1>ecg module<a class="headerlink" href="#module-ecg" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="ecg.R_detect">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">R_detect</code><span class="sig-paren">(</span><em class="sig-param">fs</em>, <em class="sig-param">nor_filtered_ecg</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.R_detect" title="Permalink to this definition">¶</a></dt>
+<dd><p>R wave detection</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency of the ECG signal</p></li>
+<li><p><strong>nor_filtered_ecg</strong> (<em>ndarray</em>) – the normalized filtered ECG signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the indices of R in signals</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.ave_sample_freq">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">ave_sample_freq</code><span class="sig-paren">(</span><em class="sig-param">Time</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.ave_sample_freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the average sample frequency of the signal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Time</strong> (<em>list</em>) – the list of time</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of the sample frequency as fs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.beats">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">beats</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">peaks</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.beats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record the times when beats occurred</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The numpy array of time sequence when beats occurred</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.butter_bp">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">butter_bp</code><span class="sig-paren">(</span><em class="sig-param">lowcut</em>, <em class="sig-param">highcut</em>, <em class="sig-param">fs</em>, <em class="sig-param">order=5</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.butter_bp" title="Permalink to this definition">¶</a></dt>
+<dd><p>A butterworth bandpass filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lowcut</strong> (<em>float</em>) – the lower cutoff frequency</p></li>
+<li><p><strong>highcut</strong> (<em>float</em>) – the higher cutoff frequency</p></li>
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – the order for the filter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numerator of the filter
+ndarray: Denominator of the filter</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.convert_data">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">convert_data</code><span class="sig-paren">(</span><em class="sig-param">data_raw</em>, <em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.convert_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert the data from raw string style to the list numbers</p>
+<p>The raw data is the list of the strings with mixed time and ecg
+signals. This function converts the strings to numbers. It
+regards the empty row as the end of the csv file. It can log
+the corresponding error message when the data contain some
+non-numeric entries, missing data, or NaN. It can log the warning
+if the ecg values are out of range of +/-300mv.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_raw</strong> (<em>list</em>) – the raw file content</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of the time
+list: The list of the ECG signals</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.create_dict">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">create_dict</code><span class="sig-paren">(</span><em class="sig-param">Time</em>, <em class="sig-param">ECG</em>, <em class="sig-param">peaks</em>, <em class="sig-param">fs</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.create_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Form the dictionary for each signal</p>
+<p>It basically only uses other functions so that it doesn’t have
+test function for the outputs but have test for logging info.
+Each patient has a dictionary, which contains following information:
+duration: time duration of the ECG strip
+voltage_extremes: tuple containing minimum and maximum lead voltages
+num_beats: number of detected beats in the strip
+mean_hr_bpm: estimated average heart rate over the length of the strip
+beats: numpy array of times when a beat occurred</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>ECG</strong> (<em>list</em>) – the list of the ECG signals</p></li>
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency of the ECG signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The output dictionary of the ECG data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.duration">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param">Time</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>The duration of the ECG signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Time</strong> (<em>list</em>) – the list of time</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The total time duration of the ECG signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.ecg_filter">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">ecg_filter</code><span class="sig-paren">(</span><em class="sig-param">fs</em>, <em class="sig-param">ECG</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.ecg_filter" title="Permalink to this definition">¶</a></dt>
+<dd><p>A filter for the ECG signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency</p></li>
+<li><p><strong>ECG</strong> (<em>list</em>) – the ECG signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The filtered ECG signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.freq">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">freq</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">ECG</em>, <em class="sig-param">Time</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.freq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the zooming in frequency spectrum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – the name of the file</p></li>
+<li><p><strong>ECG</strong> (<em>list</em>) – the list of the eCG signal</p></li>
+<li><p><strong>Time</strong> (<em>list</em>) – the list of the time</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.is_abnormal_data">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">is_abnormal_data</code><span class="sig-paren">(</span><em class="sig-param">time_and_ecg</em>, <em class="sig-param">count</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.is_abnormal_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if it is abnormal data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_and_ecg</strong> (<em>list</em>) – the list has strings of  time and ecg</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – the number of the row</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>if there is abnormal data
+list: time and ecg if there is numeric data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.is_outside_range">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">is_outside_range</code><span class="sig-paren">(</span><em class="sig-param">ecg</em>, <em class="sig-param">file_name</em>, <em class="sig-param">flag</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.is_outside_range" title="Permalink to this definition">¶</a></dt>
+<dd><p>Test if the values in ECG are out of range of +/- 300 mv</p>
+<p>If the values in ECG are out of range of +/- 300 mv, a warning
+will be raised up to the log file indicating the name of the
+test file and that voltages exceeded the normal range. If it has
+data outside range, the warning will appear only once in a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg</strong> (<em>float</em>) – a value in ECG signals</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+<li><p><strong>flag</strong> (<em>bool</em>) – <p>test if the function will be executed
+False: if it never reads a value out of range before</p>
+<blockquote>
+<div><p>possible to be executed if input is out of range</p>
+</div></blockquote>
+<dl class="simple">
+<dt>True: if it has read a value out of range before</dt><dd><p>the function would never be executed</p>
+</dd>
+</dl>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if it is out of range; otherwise false.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.json_output">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">json_output</code><span class="sig-paren">(</span><em class="sig-param">metrics</em>, <em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.json_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the json output files for each signal</p>
+<p>The json file have the same name as the ECG data file,
+but with an extension of .json.
+The file should contain the following information in JSON format:
+duration: time duration of the ECG strip
+voltage_extremes: tuple containing minimum and maximum lead voltages
+num_beats: number of detected beats in the strip
+mean_hr_bpm: estimated average heart rate over the length of the strip
+beats: numpy array of times when a beat occurred</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metrics</strong> (<em>dict</em>) – The output dictionary of the ECG data</p></li>
+<li><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.local_mean">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">local_mean</code><span class="sig-paren">(</span><em class="sig-param">fs</em>, <em class="sig-param">nor_filtered_ecg</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.local_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the local means in the normalized filtered ECG signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency</p></li>
+<li><p><strong>nor_filtered_ecg</strong> (<em>ndarray</em>) – the normalized filtered ECG signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The local means in the normalized filtered ECG signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.main">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">files_path</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main function of the ecg.py</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.mean_hr_bpm">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">mean_hr_bpm</code><span class="sig-paren">(</span><em class="sig-param">peaks</em>, <em class="sig-param">fs</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.mean_hr_bpm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the mean beats per minute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+<li><p><strong>fs</strong> (<em>float</em>) – the sampling frequency of the ECG signal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>beats per minute</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.normalize">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">normalize</code><span class="sig-paren">(</span><em class="sig-param">filtered_ecg</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize the filtered ECG signal</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filtered_ecg</strong> (<em>ndarray</em>) – the filtered ECG signal</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The normalized filtered ECG signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.num_beats">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">num_beats</code><span class="sig-paren">(</span><em class="sig-param">peaks</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.num_beats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the number of the peaks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The number of the peaks</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.read_data">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">read_data</code><span class="sig-paren">(</span><em class="sig-param">file_name</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.read_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the data from the original csv file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>string</em>) – the entire file name of the data</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The raw file content</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.sort_files">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">sort_files</code><span class="sig-paren">(</span><em class="sig-param">ecg_files</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.sort_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort the ecg files in the folder</p>
+<p>The name of the ecg file should follow the format as:
+test_data*.csv, where * stands for the number of the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ecg_files</strong> (<em>list</em>) – The list of the path of ecg files</p></li>
+<li><p><strong>random order</strong> (<em>in</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of the all of the ecg files</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.stat_peaks">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">stat_peaks</code><span class="sig-paren">(</span><em class="sig-param">peaks</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.stat_peaks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the removes the abnormal points in peak distance</p>
+<p>Compute the distance between each couple of the peaks. Remove the
+peak distance that is out of 2 times away from the median distance,
+which are considered as the wrong peaks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>convinced distance between the peaks</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.visual_result">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">visual_result</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">Time</em>, <em class="sig-param">ECG</em>, <em class="sig-param">nor_filtered_ecg</em>, <em class="sig-param">mean_nor_filtered_ecg</em>, <em class="sig-param">peaks</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.visual_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize the ECG signals with peaks on it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – the name of the file</p></li>
+<li><p><strong>Time</strong> (<em>list</em>) – the list of time</p></li>
+<li><p><strong>ECG</strong> (<em>list</em>) – the list of the ECG signals</p></li>
+<li><p><strong>nor_filtered_ecg</strong> (<em>ndarray</em>) – the normalized filtered ECG signal</p></li>
+<li><p><strong>mean_nor_filtered_ecg</strong> (<em>ndarray</em>) – the local means in the</p></li>
+<li><p><strong>filtered ECG signal</strong> (<em>normalized</em>) – </p></li>
+<li><p><strong>peaks</strong> (<em>ndarray</em>) – the indices of R in signals</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ecg.voltage_extremes">
+<code class="sig-prename descclassname">ecg.</code><code class="sig-name descname">voltage_extremes</code><span class="sig-paren">(</span><em class="sig-param">ECG</em><span class="sig-paren">)</span><a class="headerlink" href="#ecg.voltage_extremes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the tuple containing minimum and maximum lead voltages</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ECG</strong> (<em>list</em>) – the list of the ECG signals</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>minimum and maximum voltages</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">ECG Analysis</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ecg module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_ecg.html">test_ecg module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ECG Analysis’s documentation!</a></li>
+      <li>Next: <a href="test_ecg.html" title="next chapter">test_ecg module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Liangyu Xu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/ecg.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

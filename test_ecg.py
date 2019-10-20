@@ -37,11 +37,7 @@ def test_convert_data_no_abnormal_data(data_raw, expected1, expected2):
     (["-0.2,1.1", "0.3,1.3", "0.4,NaN"], [-0.2, 0.3], [1.1, 1.3],
      ("root", "ERROR", "It has NaN data on 3 row")),
     (["@,1.2", "0.4,1.4"], [0.4], [1.4],
-     ("root", "ERROR", "It has non numeric data on 1 row")),
-    # (["a,0.2", "0.1,-0.5", "NaN,0.5", ",0.2"], [0.1], [-0.5],
-    # (("root", "ERROR", "It has non numeric data on 1 row"),
-    #  ("root", "ERROR", "It has NaN data on 3 row"),
-    #  ("root", "ERROR", "It has missing data on 4 row"))
+     ("root", "ERROR", "It has non numeric data on 1 row"))
 ])
 def test_convert_data_abnormal_data(data_raw, expected1, expected2, logging_m):
     """Test the function convert_data that converts the data style
@@ -170,27 +166,6 @@ def test_ave_sample_freq(Time, expected):
     """
     from ecg import ave_sample_freq
     result = ave_sample_freq(Time)
-    assert result == pytest.approx(expected)
-
-
-@pytest.mark.parametrize("Time, expected", [
-    ([0.1, 0.2, 0.3], 0.2),
-    ([0.2, 0.5, 0.6], 0.4),
-    ([0.2, 0.3, 0.5, 0.8], 0.6)
-])
-def test_duration(Time, expected):
-    """Test the function duration that calculates the time duration
-
-    Args:
-        Time (list): the list of time
-        expected(float): the expected time duration
-
-    Returns:
-        Error if the test fails
-        Pass if the test passes
-    """
-    from ecg import duration
-    result = duration(Time)
     assert result == pytest.approx(expected)
 
 
@@ -341,3 +316,161 @@ def test_R_detect(fs, nor_filtered_ecg, expected):
     from ecg import R_detect
     result = R_detect(fs, nor_filtered_ecg)
     assert result.tolist() == pytest.approx(expected.tolist())
+
+
+@pytest.mark.parametrize("Time, expected", [
+    ([0.1, 0.2, 0.3], 0.2),
+    ([0.2, 0.5, 0.6], 0.4),
+    ([0.2, 0.3, 0.5, 0.8], 0.6)
+])
+def test_duration(Time, expected):
+    """Test the function duration that calculates the time duration
+
+    Args:
+        Time (list): the list of time
+        expected (float): the expected time duration
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import duration
+    result = duration(Time)
+    assert result == pytest.approx(expected)
+
+
+@pytest.mark.parametrize("Time, expected", [
+    ([0.1, 0.2, 0.3], (0.1, 0.3)),
+    ([0.2, 0.5, 0.6], (0.2, 0.6)),
+    ([0.2, 0.3, 0.5, 0.8], (0.2, 0.8))
+])
+def test_voltage_extremes(Time, expected):
+    """Test the function voltage_extremes that calculates min and max voltages
+
+    Args:
+        Time (list): the list of time
+        expected (tuple): the expected time voltage extremes
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import voltage_extremes
+    result = voltage_extremes(Time)
+    assert result == expected
+
+
+@pytest.mark.parametrize("peaks, expected", [
+    (np.asarray([0.1, 0.2, 0.3, 0.4, 1.5, 1.65, 1.8]),
+     [0.1, 0.1, 0.1, 0.15, 0.15]),
+    (np.asarray([0.2, 0.4, 0.7, 1.0, 2.1, 2.2]),
+     [0.2, 0.3, 0.3, 0.1]),
+    (np.asarray([0.2, 0.6, 1.1, 1.4, 2.0, 2.4]),
+     [0.4, 0.5, 0.3, 0.6, 0.4])
+])
+def test_stat_peaks(peaks, expected):
+    """Test the function stat_peaks that removes the abnormal
+    points in peak distance and return the peak distance
+
+    Args:
+        peaks (ndarray): the indices of R in signals
+        expected (list): the expected peaks distance
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import stat_peaks
+    result = stat_peaks(peaks)
+    assert result == pytest.approx(expected)
+
+
+@pytest.mark.parametrize("peaks, expected", [
+    (np.asarray([0.1, 0.2, 0.3, 0.4]), 4),
+    (np.asarray([0.2, 0.4, 0.7, 1.0, 2.1, 2.2]), 6),
+    (np.asarray([0.2, 0.6, 1.1, 1.4, 2.0]), 5)
+])
+def test_num_beats(peaks, expected):
+    """Test the function num_beats that calculates the number of the peaks
+
+    Args:
+        peaks (ndarray): the indices of R in signals
+        expected (list): the expected number of the peaks
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import num_beats
+    result = num_beats(peaks)
+    assert result == expected
+
+
+@pytest.mark.parametrize("peaks_dis, fs, expected", [
+    (np.asarray([0.1, 0.2, 0.3, 0.4, 1.5, 1.65, 1.8]), 10, 5000),
+    (np.asarray([0.2, 0.4, 0.7, 1.0, 2.1, 2.2]), 10, 2667),
+    (np.asarray([0.2, 0.6, 1.1, 1.4, 2.0, 2.4]), 10, 1364)
+])
+def test_mean_hr_bpm(peaks_dis, fs, expected):
+    """Test the function mean_hr_bpm that calculates the mean beats per minute
+
+    Args:
+        peaks (ndarray): the indices of R in signals
+        expected (list): the expected mean beats per minute
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import mean_hr_bpm
+    result = mean_hr_bpm(peaks_dis, fs)
+    assert result == expected
+
+
+@pytest.mark.parametrize("Time, peaks, expected", [
+    ([0.1, 0.2, 0.3, 0.4, 0.5],
+     np.asarray([0, 1, 3]), np.asarray([0.1, 0.2, 0.4])),
+    ([1.7, 1.8, 1.9, 2.0, 2.1, 2.2],
+     np.asarray([0, 2, 3]), np.asarray([1.7, 1.9, 2.0])),
+    ([0.6, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0],
+     np.asarray([3, 5, 6]), np.asarray([1.2, 1.6, 1.8]))
+])
+def test_beats(Time, peaks, expected):
+    """Test the function beats that records the times when beats occurred
+
+    Args:
+        Time (list): the list of time
+        peaks (ndarray): the indices of R in signals
+        expected (list): the expected times of beats
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import beats
+    result = beats(Time, peaks)
+    assert result.tolist() == expected.tolist()
+
+
+@pytest.mark.parametrize("ecg_files, expected", [
+    (["test_data3.csv", "test_data7.csv", "test_data5.csv"],
+     ["test_data3.csv", "test_data5.csv", "test_data7.csv"]),
+    (["test_data9.csv", "test_data6.csv", "test_data1.csv"],
+     ["test_data1.csv", "test_data6.csv", "test_data9.csv"]),
+    (["test_data2.csv", "test_data11.csv", "test_data3.csv"],
+     ["test_data2.csv", "test_data3.csv", "test_data11.csv"])
+])
+def test_sort_files(ecg_files, expected):
+    """Test the function sort_files that sorts the ecg files in the folder
+
+    Args:
+        ecg_files (list): The list of the ecg files in random order
+        expected (list): the expected ecg files in the folder
+
+    Returns:
+        Error if the test fails
+        Pass if the test passes
+    """
+    from ecg import sort_files
+    result = sort_files(ecg_files)
+    assert result == expected

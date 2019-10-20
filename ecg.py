@@ -54,18 +54,18 @@ def convert_data(data_raw):
                 time = float(time_and_ecg[0])
                 ecg = float(time_and_ecg[1])
             except AssertionError:
-                logging.error('It has missing data on {} row'
+                logging.error('It has missing data on {} row.'
                               .format(count))
                 continue
             except ValueError:
-                logging.error('It has non numeric data on {} row'
+                logging.error('It has non numeric data on {} row.'
                               .format(count))
                 continue
             try:
                 assert not math.isnan(time)
                 assert not math.isnan(ecg)
             except AssertionError:
-                logging.error('It has NaN data on {} row'
+                logging.error('It has NaN data on {} row.'
                               .format(count))
                 continue
             else:
@@ -345,8 +345,8 @@ def visual_result(filename, Time, ECG, nor_filtered_ecg,
 def create_dict(Time, ECG, peaks, fs):
     """Form the dictionary for each signal
 
-    It's basically only uses other functions so that it doesn't have
-    test function
+    It basically only uses other functions so that it doesn't have
+    test function for the outputs but have test for logging info.
     Each patient has a dictionary, which contains following information:
     duration: time duration of the ECG strip
     voltage_extremes: tuple containing minimum and maximum lead voltages
@@ -363,11 +363,25 @@ def create_dict(Time, ECG, peaks, fs):
     Returns:
         dict: The output dictionary of the ECG data
     """
-    metrics = {"duration": duration(Time),
-               "voltage_extremes": voltage_extremes(ECG),
-               "num_beats": num_beats(peaks),
-               "mean_hr_bpm": mean_hr_bpm(peaks, fs),
-               "beats": beats(Time, peaks).tolist()}
+    d = duration(Time)
+    logging.info('* Finish calculating duration as float')
+    v = voltage_extremes(ECG)
+    logging.info('                 '
+                 '... voltage extremes as tuple')
+    n = num_beats(peaks)
+    logging.info('                 '
+                 '... number of beats as int')
+    m = mean_hr_bpm(peaks, fs)
+    logging.info('                 '
+                 '... mean bpm as int')
+    b = beats(Time, peaks).tolist()
+    logging.info('                 '
+                 '... time of beats as list')
+    metrics = {"duration": d,
+               "voltage_extremes": v,
+               "num_beats": n,
+               "mean_hr_bpm": m,
+               "beats": b}
     return metrics
 
 
@@ -442,19 +456,29 @@ def main(files_path):
     for ecg_file in ecg_files_sorted:
         filename = ecg_file.split('/')[1]
         logging.info('----This is the log of file {}----'.format(filename))
+        logging.info('Reading the data...')
         data_raw = read_data(filename)
         Time, ECG = convert_data(data_raw)
         is_outside_range(ECG, filename)
+        logging.info('* Finish reading the ECG data as list.')
         fs = ave_sample_freq(Time)
+        logging.info('* Finish computing the sampling frequency as '
+                     '{0:.2f}Hz'.format(fs))
         filtered_ecg = ecg_filter(fs, ECG)
+        logging.info('* Finish filtering the ECG signal')
         nor_filtered_ecg = normalize(filtered_ecg)
         mean_nor_filtered_ecg = local_mean(fs, nor_filtered_ecg)
         peaks = R_detect(fs, nor_filtered_ecg)
+        logging.info('* Finish finding the R peaks in ECG signal')
         # freq(filename, ECG, Time)
         # visual_result(filename, Time, ECG, nor_filtered_ecg,
         #               mean_nor_filtered_ecg, peaks)
+        logging.info('Calculating the information in dictionary...')
         metrics = create_dict(Time, ECG, peaks, fs)
+        logging.info('* Complete calculation.')
+        logging.info('Saving the information in json...')
         json_output(metrics, filename)
+        logging.info('* Complete save the json file')
         logging.info('----This is the end of file {}----\n'.format(filename))
 
 
